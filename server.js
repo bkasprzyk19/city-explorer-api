@@ -22,9 +22,9 @@ app.get('/', (request, response) => {
 
 app.get('/climates', (request, response) => {
 
-  const data = request.query.data === "true";
+  const city_name = request.query.city_name === "true";
 
-  const firstClimate = climates.find(climate => climate.searchQuery === data);
+  const firstClimate = climates.find(climate => climate.searchQuery === city_name);
 
   response.send(firstClimate);
 
