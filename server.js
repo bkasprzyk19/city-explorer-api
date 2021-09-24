@@ -3,9 +3,9 @@
 
 require('dotenv').config();
 const express = require('express');
-
-const cors = require('cors');
 const axios = require('axios');
+const cors = require('cors');
+
 
 
 
@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 
 
-app.get('/', (request, response) => {
+app.get('/', async (request, response) => {
   response.status(200).send('Authenticated, Grade A Prime');
 });
 
@@ -26,22 +26,23 @@ function Forecast(day) {
 app.get('/weather', async (request, response) => {
 
   
-  const city_name = request.query.city_name;
   const lat = request.query.lat;
   const lon = request.query.lon;
 
   const weatherAPI = `https://api.weatherbit.io/v2.0/forecast/daily?key=${process.env.REACT_APP_WEATHER_API_KEY}&land=en&lat=${lat}&lon=${lon}&days=5`
 
+  
+
+const firstClimate = await axios.get(weatherAPI);
+
+  
 
 
 
-
-
-
-  if (firstClimate) {
-    const weatherArr = currentForecast.data.map(item => new Forecast(item));
+  try {
+    const weatherArr = firstClimate.data.data.map(day => new Forecast(day));
     response.send(weatherArr);
-  } else {
+  } catch (error) {
     response.status(555).send('submit a valid city name')
   }
  
