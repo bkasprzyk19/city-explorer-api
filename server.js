@@ -3,7 +3,7 @@
 
 require('dotenv').config();
 const express = require('express');
-const axios = require('axios');
+import axios from 'axios';
 const cors = require('cors');
 
 
