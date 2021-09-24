@@ -3,7 +3,7 @@
 
 require('dotenv').config();
 const express = require('express');
-import axios from 'axios';
+const axios = require('axios');
 const cors = require('cors');
 
 
@@ -40,9 +40,9 @@ const firstClimate = await axios.get(weatherAPI);
 
 
   try {
-    const weatherArr = firstClimate.data.data.map(day => new Forecast(day));
-    response.send(weatherArr);
-  } catch (error) {
+    const weatherArr = firstClimate.data.data.map(day => {return new Forecast(day)} );
+
+    response.send(weatherArr); } catch (error) {
     response.status(555).send('submit a valid city name')
   }
  
